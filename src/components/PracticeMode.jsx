@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { PROBLEMS, LEVELS, PROBLEM_CATEGORIES } from '../data/problems';
 import { useApp } from '../context/AppContext';
 import { 
@@ -8,7 +8,8 @@ import {
   ArrowRight, 
   BookOpen, 
   Flame,
-  Filter
+  Filter,
+  Sparkles
 } from 'lucide-react';
 import SurvivalMode from './SurvivalMode';
 
@@ -35,6 +36,36 @@ const PracticeMode = () => {
   };
 
   const levelProblems = getFilteredProblems();
+
+  // サジェスト：未解決の問題から適切なレベルのものをおすすめ
+  const suggestedProblems = useMemo(() => {
+    const unsolvedProblems = PROBLEMS.filter(
+      p => !userProgress.solvedProblems.includes(p.id)
+    );
+    
+    if (unsolvedProblems.length === 0) {
+      // 全問解いた場合はランダムに3問
+      return PROBLEMS.slice().sort(() => Math.random() - 0.5).slice(0, 3);
+    }
+
+    // ユーザーのレベルを推定（解いた問題の最高レベル、なければ1）
+    const solvedLevels = userProgress.solvedProblems
+      .map(id => PROBLEMS.find(p => p.id === id)?.level || 1);
+    const maxSolvedLevel = solvedLevels.length > 0 
+      ? Math.max(...solvedLevels) 
+      : 0;
+    const recommendedLevel = Math.min(maxSolvedLevel + 1, 5);
+
+    // 推奨レベル付近の未解決問題を優先
+    const prioritized = unsolvedProblems.sort((a, b) => {
+      const aDiff = Math.abs(a.level - recommendedLevel);
+      const bDiff = Math.abs(b.level - recommendedLevel);
+      if (aDiff !== bDiff) return aDiff - bDiff;
+      return Math.random() - 0.5; // 同レベルならランダム
+    });
+
+    return prioritized.slice(0, 3);
+  }, [userProgress.solvedProblems]);
 
   const startProblem = (problem) => {
     setCurrentProblem(problem);
@@ -182,6 +213,51 @@ const PracticeMode = () => {
         </button>
 
         <h2 className="text-3xl font-bold text-gray-800 mb-6">通常モード</h2>
+
+        {/* おすすめ問題 */}
+        <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow-lg p-6 mb-6 border border-purple-200">
+          <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center space-x-2">
+            <Sparkles className="text-purple-500" size={20} />
+            <span>おすすめ問題</span>
+            <span className="text-sm font-normal text-gray-500">
+              {userProgress.solvedProblems.length === PROBLEMS.length 
+                ? '(全問クリア！復習にどうぞ)' 
+                : '(あなたのレベルに合った問題)'}
+            </span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {suggestedProblems.map((problem) => {
+              const isSolved = userProgress.solvedProblems.includes(problem.id);
+              const level = LEVELS.find(l => l.id === problem.level);
+              return (
+                <button
+                  key={problem.id}
+                  onClick={() => startProblem(problem)}
+                  className="p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:shadow-md transition-all text-left"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${
+                      level?.color === 'green' ? 'bg-green-100 text-green-700' :
+                      level?.color === 'blue' ? 'bg-blue-100 text-blue-700' :
+                      level?.color === 'purple' ? 'bg-purple-100 text-purple-700' :
+                      level?.color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                      'bg-red-100 text-red-700'
+                    }`}>
+                      {level?.emoji} Lv.{problem.level}
+                    </span>
+                    {isSolved && <CheckCircle className="text-green-500" size={16} />}
+                  </div>
+                  <h4 className="font-bold text-gray-800 text-sm mb-1 line-clamp-1">
+                    {problem.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 line-clamp-2">
+                    {problem.description}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         {/* レベル選択 */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">

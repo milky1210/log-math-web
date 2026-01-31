@@ -440,6 +440,322 @@ export const PROBLEMS = [
     explanation: "【計算式】\nM差 = 8 - 6 = 2\nエネルギー比 = 32² = 1024 ≈ 10³\n\nlog(1024) ≈ 3.0\n\n💡 M8はM6の約1000倍のエネルギー！",
     unit: "倍"
   },
+
+  // ==========================================
+  // 速度系の問題
+  // ==========================================
+  {
+    id: 36,
+    level: 1,
+    category: 'Speed',
+    title: "km/hをm/sに変換",
+    description: "時速100km/hは秒速何m/s？",
+    targetLog: 1.44,
+    tolerance: 0.15,
+    hint: "100km/h ÷ 3.6 = ?m/s",
+    explanation: "【計算式】\n100km/h ÷ 3.6 ≈ 27.8m/s\n\nlog(27.8) ≈ 1.44\n\n💡 km/h → m/s は÷3.6（約−0.56）",
+    unit: "m/s"
+  },
+  {
+    id: 37,
+    level: 2,
+    category: 'Speed',
+    title: "新幹線 vs 音速",
+    description: "新幹線（300km/h）は音速（340m/s）の何倍？",
+    targetLog: -0.61,
+    tolerance: 0.15,
+    hint: "新幹線 = 83m/s (log≈1.92)、音速 (log≈2.53)",
+    explanation: "【計算式】\n新幹線 300km/h = 83m/s\n83 ÷ 340 = 0.24 = 10⁻⁰·⁶¹\n\n💡 新幹線は音速の約1/4",
+    unit: "倍"
+  },
+  {
+    id: 38,
+    level: 2,
+    category: 'Speed',
+    title: "ボルトの100m",
+    description: "ウサイン・ボルトは100mを9.58秒で走る。平均時速は？",
+    targetLog: 1.57,
+    tolerance: 0.15,
+    hint: "100m ÷ 9.58s = ?m/s、そして×3.6でkm/h",
+    explanation: "【計算式】\n100 ÷ 9.58 ≈ 10.4m/s\n10.4 × 3.6 ≈ 37.5km/h\n\nlog(37.5) ≈ 1.57\n\n💡 人類最速は約37km/h",
+    unit: "km/h"
+  },
+  {
+    id: 39,
+    level: 3,
+    category: 'Speed',
+    title: "光速と音速の比",
+    description: "光速（3×10⁸m/s）は音速（340m/s）の何倍？",
+    targetLog: 5.95,
+    tolerance: 0.15,
+    hint: "光速 (log≈8.48) - 音速 (log≈2.53)",
+    explanation: "【計算式】\n8.48 - 2.53 = 5.95\n\n3×10⁸ ÷ 340 ≈ 88万倍\n\n💡 光は音の約100万倍速い",
+    unit: "倍"
+  },
+  {
+    id: 40,
+    level: 3,
+    category: 'Speed',
+    title: "ISS何周？",
+    description: "ISS（秒速7.7km）は1日で地球を何周する？",
+    targetLog: 1.19,
+    tolerance: 0.15,
+    hint: "1日=86400秒、地球一周=4万km",
+    explanation: "【計算式】\n移動距離 = 7.7km/s × 86400s = 665,280km\n周回数 = 665,280 ÷ 40,000 ≈ 16.6周\n\nlog(16.6) ≈ 1.22\n\n💡 ISSは1日に約16周！",
+    unit: "周"
+  },
+  {
+    id: 41,
+    level: 4,
+    category: 'Speed',
+    title: "最寄りの恒星まで",
+    description: "光速の10%で飛ぶ宇宙船でプロキシマ・ケンタウリ（4.2光年）まで何年？",
+    targetLog: 1.62,
+    tolerance: 0.15,
+    hint: "4.2光年 ÷ 0.1光速 = ?年",
+    explanation: "【計算式】\n4.2光年 ÷ 0.1 = 42年\n\nlog(42) ≈ 1.62\n\n💡 光速の10%でも42年かかる...",
+    unit: "年"
+  },
+
+  // ==========================================
+  // 距離系の問題（ミクロ〜宇宙）
+  // ==========================================
+  {
+    id: 42,
+    level: 1,
+    category: 'Distance',
+    title: "原子と原子核",
+    description: "原子（10⁻¹⁰m）は原子核（10⁻¹⁵m）の何倍大きい？",
+    targetLog: 5.0,
+    tolerance: 0.1,
+    hint: "-10 - (-15) = ?",
+    explanation: "【計算式】\n10⁻¹⁰ ÷ 10⁻¹⁵ = 10⁵\n\n💡 原子は原子核の10万倍大きい！\n中心に野球ボール(原子核)を置くと、電子は東京ドームの端を飛ぶ",
+    unit: "倍"
+  },
+  {
+    id: 43,
+    level: 2,
+    category: 'Distance',
+    title: "DNA何個で1cm？",
+    description: "DNAの幅（2nm）を並べて1cmにするには何個必要？",
+    targetLog: 6.7,
+    tolerance: 0.15,
+    hint: "1cm = 10⁻²m、DNA = 2×10⁻⁹m",
+    explanation: "【計算式】\n10⁻² ÷ (2×10⁻⁹) = 5×10⁶\n\nlog(5×10⁶) = 0.7 + 6 = 6.7\n\n💡 500万本のDNAで1cm",
+    unit: "個"
+  },
+  {
+    id: 44,
+    level: 2,
+    category: 'Distance',
+    title: "地球から月まで光で",
+    description: "地球-月間（38万km）を光が進む時間は何秒？",
+    targetLog: 0.1,
+    tolerance: 0.1,
+    hint: "距離: log≈8.58、光速: log≈8.48",
+    explanation: "【計算式】\n3.8×10⁸m ÷ 3×10⁸m/s = 1.27秒\n\nlog(1.27) ≈ 0.1\n\n💡 月は光で約1.3秒の距離",
+    unit: "秒"
+  },
+  {
+    id: 45,
+    level: 3,
+    category: 'Distance',
+    title: "太陽まで光で",
+    description: "地球-太陽間（1AU = 1.5億km）を光が進む時間は何秒？",
+    targetLog: 2.7,
+    tolerance: 0.15,
+    hint: "1.5×10¹¹m ÷ 3×10⁸m/s",
+    explanation: "【計算式】\n1.5×10¹¹ ÷ 3×10⁸ = 500秒 ≈ 8分20秒\n\nlog(500) ≈ 2.7\n\n💡 太陽からの光は8分前の姿",
+    unit: "秒"
+  },
+  {
+    id: 46,
+    level: 4,
+    category: 'Distance',
+    title: "銀河を横断",
+    description: "天の川銀河の直径（10万光年）を光で横断するのに何秒？",
+    targetLog: 12.5,
+    tolerance: 0.2,
+    hint: "1年 = 3.15×10⁷秒",
+    explanation: "【計算式】\n10⁵年 × 3.15×10⁷秒/年 = 3.15×10¹²秒\n\nlog(3.15×10¹²) ≈ 12.5\n\n💡 銀河横断に10万年、秒にすると10¹²秒超",
+    unit: "秒"
+  },
+  {
+    id: 47,
+    level: 5,
+    category: 'Distance',
+    title: "宇宙の大きさ/原子",
+    description: "観測可能な宇宙（4.4×10²⁶m）は原子（10⁻¹⁰m）の何倍？",
+    targetLog: 36.6,
+    tolerance: 0.2,
+    hint: "26.6 - (-10) = ?",
+    explanation: "【計算式】\nlog(4.4×10²⁶) - log(10⁻¹⁰) = 26.64 - (-10) = 36.64\n\n💡 宇宙は原子の10³⁶倍以上！\nこれがスケールの全体像",
+    unit: "倍"
+  },
+
+  // ==========================================
+  // 時間・歴史系の問題
+  // ==========================================
+  {
+    id: 48,
+    level: 1,
+    category: 'History',
+    title: "人類史 vs 宇宙史",
+    description: "宇宙の年齢（138億年）は現生人類誕生（30万年前）の何倍？",
+    targetLog: 4.66,
+    tolerance: 0.15,
+    hint: "1.38×10¹⁰ ÷ 3×10⁵",
+    explanation: "【計算式】\nlog(1.38×10¹⁰) - log(3×10⁵) = 10.14 - 5.48 = 4.66\n\n💡 宇宙は人類の約5万倍長い",
+    unit: "倍"
+  },
+  {
+    id: 49,
+    level: 2,
+    category: 'History',
+    title: "恐竜時代の長さ",
+    description: "恐竜は約1.6億年間繁栄した。これは現生人類（30万年）の何倍？",
+    targetLog: 2.73,
+    tolerance: 0.15,
+    hint: "1.6×10⁸ ÷ 3×10⁵",
+    explanation: "【計算式】\nlog(1.6×10⁸) - log(3×10⁵) = 8.2 - 5.48 = 2.72\n\n10²·⁷² ≈ 530倍\n\n💡 恐竜は人類の500倍以上長く繁栄した",
+    unit: "倍"
+  },
+  {
+    id: 50,
+    level: 2,
+    category: 'Time',
+    title: "1年は何ミリ秒？",
+    description: "1年間は約何ミリ秒？",
+    targetLog: 10.5,
+    tolerance: 0.15,
+    hint: "1年 = 10^7.5秒、ミリ秒は×1000",
+    explanation: "【計算式】\n1年 ≈ 3.15×10⁷秒 = 3.15×10¹⁰ミリ秒\n\nlog(3.15×10¹⁰) = 10.5\n\n💡 1年 ≈ 300億ミリ秒",
+    unit: "ミリ秒"
+  },
+  {
+    id: 51,
+    level: 3,
+    category: 'History',
+    title: "農耕以前の人類",
+    description: "現生人類誕生（30万年前）から農耕開始（1万年前）まで、人類史の何%？",
+    targetLog: 1.99,
+    tolerance: 0.1,
+    hint: "(30万-1万) ÷ 30万 × 100",
+    explanation: "【計算式】\n(3×10⁵ - 10⁴) ÷ 3×10⁵ × 100 ≈ 96.7%\n\nlog(96.7) ≈ 1.99\n\n💡 人類史の97%は狩猟採集時代！",
+    unit: "%"
+  },
+  {
+    id: 52,
+    level: 4,
+    category: 'History',
+    title: "文明5000年を1日に圧縮",
+    description: "5000年の文明史を24時間に圧縮。産業革命（250年前）は何時何分から？",
+    targetLog: 2.83,
+    tolerance: 0.2,
+    hint: "250年 ÷ 5000年 × 24時間 = 経過時間（時間）",
+    explanation: "【計算式】\n産業革命の開始 = 24 - (250/5000 × 24) = 24 - 1.2 = 22.8時間後\n= 22時48分\n\n💡 文明5000年を1日とすると、産業革命は23時前から！\n\n実際の問いはlog(分換算):\n1.2時間 = 72分前 → 現在から72分前開始\nlog(72) ≈ 1.86",
+    unit: "時間後から開始"
+  },
+  {
+    id: 53,
+    level: 3,
+    category: 'Time',
+    title: "心臓の鼓動",
+    description: "人の心臓は1分間に60回鼓動する。一生（80年）で何回鼓動する？",
+    targetLog: 9.4,
+    tolerance: 0.15,
+    hint: "60回/分 × 60分 × 24時間 × 365日 × 80年",
+    explanation: "【計算式】\n60 × 60 × 24 × 365 × 80 = 2.52×10⁹回\n\nlog(2.52×10⁹) ≈ 9.4\n\n💡 一生で約25億回！",
+    unit: "回"
+  },
+
+  // ==========================================
+  // 単位変換・物理の問題
+  // ==========================================
+  {
+    id: 54,
+    level: 2,
+    category: 'Energy',
+    title: "1kWh = ?J",
+    description: "1kWhは何ジュールか？",
+    targetLog: 6.56,
+    tolerance: 0.1,
+    hint: "1kWh = 1000W × 3600秒",
+    explanation: "【計算式】\n1kWh = 1000W × 3600s = 3,600,000J = 3.6MJ\n\nlog(3.6×10⁶) = 6.56\n\n💡 Wh = W × h = W × 3600s\n電力(W) × 時間(s) = エネルギー(J)",
+    unit: "J"
+  },
+  {
+    id: 55,
+    level: 3,
+    category: 'Energy',
+    title: "電気ポットの電気代",
+    description: "1000Wの電気ポットで3分お湯を沸かす。使用エネルギーは何J？",
+    targetLog: 5.26,
+    tolerance: 0.15,
+    hint: "1000W × 180秒 = ?J",
+    explanation: "【計算式】\n1000W × 180s = 180,000J = 180kJ\n\nlog(180,000) ≈ 5.26\n\n💡 W(J/s) × s = J（ワット秒がジュール）",
+    unit: "J"
+  },
+  {
+    id: 56,
+    level: 2,
+    category: 'Power',
+    title: "電力から電力量",
+    description: "100Wの電球を10時間つけると何Wh？",
+    targetLog: 3.0,
+    tolerance: 0.1,
+    hint: "100W × 10h = ?Wh",
+    explanation: "【計算式】\n100W × 10h = 1000Wh = 1kWh\n\nlog(1000) = 3.0\n\n💡 電力(W) × 時間(h) = 電力量(Wh)",
+    unit: "Wh"
+  },
+  {
+    id: 57,
+    level: 3,
+    category: 'Speed',
+    title: "徒歩で地球一周",
+    description: "時速5kmで休まず歩くと、地球一周（4万km）に何日かかる？",
+    targetLog: 2.52,
+    tolerance: 0.15,
+    hint: "4万km ÷ 5km/h = ?時間、÷24で日数",
+    explanation: "【計算式】\n40,000 ÷ 5 = 8,000時間\n8,000 ÷ 24 ≈ 333日\n\nlog(333) ≈ 2.52\n\n💡 休まず歩いても約1年！",
+    unit: "日"
+  },
+  {
+    id: 58,
+    level: 4,
+    category: 'Physics',
+    title: "原子炉の熱効率",
+    description: "原発1基（熱出力3GW、電気出力1GW）の熱効率は？",
+    targetLog: 1.52,
+    tolerance: 0.1,
+    hint: "効率 = 電気出力 ÷ 熱出力 × 100%",
+    explanation: "【計算式】\n1GW ÷ 3GW × 100 = 33.3%\n\nlog(33.3) ≈ 1.52\n\n💡 原子力の熱効率は約33%（火力は40-60%）",
+    unit: "%"
+  },
+  {
+    id: 59,
+    level: 5,
+    category: 'Energy',
+    title: "太陽から地球へのエネルギー",
+    description: "太陽の放射エネルギー（3.8×10²⁶W）のうち、地球（断面積1.3×10¹⁴m²）が受け取る割合は？（4πr²で拡散、r=1AU）",
+    targetLog: -8.8,
+    tolerance: 0.25,
+    hint: "地球断面積 ÷ (4π × (1AU)²)",
+    explanation: "【計算式】\n球面積 = 4π × (1.5×10¹¹)² ≈ 2.8×10²³m²\n割合 = 1.3×10¹⁴ ÷ 2.8×10²³ ≈ 4.6×10⁻¹⁰\n\nlog(4.6×10⁻¹⁰) ≈ -9.3\n\n💡 太陽エネルギーの10億分の1以下しか受け取っていない",
+    unit: "(比率)"
+  },
+  {
+    id: 60,
+    level: 3,
+    category: 'IT',
+    title: "光ファイバーの遅延",
+    description: "東京-ロサンゼルス間（9000km）の光ファイバー通信の遅延は約何ミリ秒？（光速の2/3で伝搬）",
+    targetLog: 1.63,
+    tolerance: 0.15,
+    hint: "9×10⁶m ÷ (2×10⁸m/s) × 1000ms",
+    explanation: "【計算式】\n9×10⁶m ÷ (3×10⁸ × 2/3)m/s = 9×10⁶ ÷ 2×10⁸ = 0.045秒 = 45ms\n\nlog(45) ≈ 1.65\n\n💡 太平洋横断で約45ms（往復90ms）の遅延",
+    unit: "ms"
+  },
 ];
 
 // レベル定義
@@ -459,6 +775,9 @@ export const PROBLEM_CATEGORIES = [
   { id: 'Power', name: '電力', icon: '🔌' },
   { id: 'Area', name: '面積', icon: '📐' },
   { id: 'Time', name: '時間', icon: '⏰' },
+  { id: 'Speed', name: '速度', icon: '🚀' },
+  { id: 'Distance', name: '距離', icon: '📏' },
+  { id: 'History', name: '歴史', icon: '📜' },
   { id: 'Physics', name: '物理', icon: '🔬' },
   { id: 'Daily', name: '日常', icon: '🏠' },
 ];

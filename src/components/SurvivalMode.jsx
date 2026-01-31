@@ -64,12 +64,12 @@ const SurvivalMode = ({ onBack }) => {
     }
   };
 
-  // 次の問題を取得
-  const getNextProblem = useCallback(() => {
+  // 次の問題を取得（usedListを引数で受け取る版）
+  const getNextProblem = useCallback((usedList = usedProblems) => {
     const settings = difficultySettings[difficulty];
     let availableProblems = PROBLEMS.filter(p => 
       settings.levels.includes(p.level) &&
-      !usedProblems.includes(p.id) &&
+      !usedList.includes(p.id) &&
       (category === 'all' || p.category === category)
     );
 
@@ -104,7 +104,8 @@ const SurvivalMode = ({ onBack }) => {
     setShowHint(false);
     setUserAnswer('');
     
-    const firstProblem = getNextProblem();
+    // 空配列を渡して初回問題を取得
+    const firstProblem = getNextProblem([]);
     setCurrentProblem(firstProblem);
     setGameState('playing');
   };

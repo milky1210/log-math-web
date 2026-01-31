@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { LOG_CONSTANTS, CATEGORIES } from '../data/constants';
-import { Search, BookOpen, Star } from 'lucide-react';
+import { LOG_CONSTANTS, CATEGORIES, getAccuracyColor, getAccuracyBgColor } from '../data/constants';
+import { Search, BookOpen, Star, Info } from 'lucide-react';
 
 const Reference = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -58,6 +58,31 @@ const Reference = () => {
           <Star size={18} />
           <span>重要のみ</span>
         </button>
+      </div>
+
+      {/* 色分け凡例 */}
+      <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="flex items-center space-x-2 mb-2">
+          <Info size={16} className="text-gray-500" />
+          <span className="font-medium text-gray-700">Log値の色分け</span>
+        </div>
+        <div className="flex flex-wrap gap-4 text-sm">
+          <div className="flex items-center space-x-2">
+            <span className="w-4 h-4 rounded bg-red-100 border border-red-300"></span>
+            <span className="text-red-600 font-medium">赤</span>
+            <span className="text-gray-600">= 切り捨て（真値 {'>'} 表示値）</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="w-4 h-4 rounded bg-blue-100 border border-blue-300"></span>
+            <span className="text-blue-600 font-medium">青</span>
+            <span className="text-gray-600">= 切り上げ（真値 {'<'} 表示値）</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="w-4 h-4 rounded bg-gray-100 border border-gray-300"></span>
+            <span className="text-gray-900 font-medium">黒</span>
+            <span className="text-gray-600">= ほぼ正確</span>
+          </div>
+        </div>
       </div>
 
       {/* カテゴリフィルター */}
@@ -177,6 +202,7 @@ const Reference = () => {
 const ConstantCard = ({ constant }) => {
   const categoryInfo = CATEGORIES.find(c => c.id === constant.category);
   const isImportant = constant.memo && constant.memo.includes('🔑');
+  const accuracyColorClass = getAccuracyColor(constant.accuracy);
   
   return (
     <div
@@ -190,7 +216,14 @@ const ConstantCard = ({ constant }) => {
         {isImportant && <Star className="text-yellow-500 flex-shrink-0" size={18} fill="currentColor" />}
       </div>
       <div className="mb-2">
-        <span className="text-3xl font-bold text-primary">{constant.value}</span>
+        <span className={`text-3xl font-bold ${accuracyColorClass}`}>
+          {constant.value.toFixed(2)}
+        </span>
+        {constant.accuracy !== 'exact' && (
+          <span className={`ml-2 text-xs ${accuracyColorClass}`}>
+            {constant.accuracy === 'up' ? '(↑切上)' : '(↓切捨)'}
+          </span>
+        )}
       </div>
       <p className="text-xs text-gray-500 mb-2">{constant.description}</p>
       {constant.memo && (

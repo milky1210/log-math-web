@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ChevronRight, ChevronLeft, BookOpen, Zap, MapPin, Timer, Cpu, Calculator } from 'lucide-react';
+import { ChevronRight, ChevronLeft, BookOpen, Zap, MapPin, Timer, Cpu, Calculator, Rocket, History } from 'lucide-react';
+import { LOG_MAP, getAccuracyColor, getAccuracyBgColor } from '../data/constants';
 
 const LearnMode = () => {
   const [selectedChapter, setSelectedChapter] = useState(null);
@@ -15,11 +16,39 @@ const LearnMode = () => {
       slides: basicSlides,
     },
     {
+      id: 'physics',
+      title: '物理単位の基礎',
+      icon: <Zap size={24} />,
+      color: 'indigo',
+      slides: physicsUnitSlides,
+    },
+    {
       id: 'time',
       title: '時間の感覚',
       icon: <Timer size={24} />,
       color: 'green',
       slides: timeSlides,
+    },
+    {
+      id: 'speed',
+      title: '速度の感覚',
+      icon: <Rocket size={24} />,
+      color: 'emerald',
+      slides: speedSlides,
+    },
+    {
+      id: 'distance',
+      title: '距離・スケール',
+      icon: <MapPin size={24} />,
+      color: 'purple',
+      slides: distanceSlides,
+    },
+    {
+      id: 'history',
+      title: '時間と歴史',
+      icon: <History size={24} />,
+      color: 'amber',
+      slides: historySlides,
     },
     {
       id: 'area',
@@ -39,7 +68,7 @@ const LearnMode = () => {
       id: 'it',
       title: 'IT・データ',
       icon: <Cpu size={24} />,
-      color: 'purple',
+      color: 'cyan',
       slides: itSlides,
     },
     {
@@ -78,22 +107,26 @@ const LearnMode = () => {
         <h2 className="text-3xl font-bold text-gray-800 mb-2">学習モード</h2>
         <p className="text-gray-600 mb-8">Log算の基礎から応用まで、段階的に学ぼう！</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {chapters.map((chapter) => (
             <button
               key={chapter.id}
               onClick={() => selectChapter(chapter.id)}
-              className={`p-6 rounded-xl shadow-lg text-left transition-all hover:scale-105 hover:shadow-xl ${
+              className={`p-5 rounded-xl shadow-lg text-left transition-all hover:scale-105 hover:shadow-xl ${
                 chapter.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
                 chapter.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
                 chapter.color === 'yellow' ? 'bg-gradient-to-br from-yellow-500 to-yellow-600' :
                 chapter.color === 'orange' ? 'bg-gradient-to-br from-orange-500 to-orange-600' :
                 chapter.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
+                chapter.color === 'cyan' ? 'bg-gradient-to-br from-cyan-500 to-cyan-600' :
+                chapter.color === 'indigo' ? 'bg-gradient-to-br from-indigo-500 to-indigo-600' :
+                chapter.color === 'emerald' ? 'bg-gradient-to-br from-emerald-500 to-emerald-600' :
+                chapter.color === 'amber' ? 'bg-gradient-to-br from-amber-500 to-amber-600' :
                 'bg-gradient-to-br from-red-500 to-red-600'
               } text-white`}
             >
-              <div className="mb-4">{chapter.icon}</div>
-              <h3 className="text-xl font-bold mb-2">{chapter.title}</h3>
+              <div className="mb-3">{chapter.icon}</div>
+              <h3 className="text-lg font-bold mb-1">{chapter.title}</h3>
               <p className="text-white/80 text-sm">
                 {chapter.slides.length} スライド
               </p>
@@ -199,6 +232,129 @@ const ConstantCard = ({ number, logValue, description }) => (
 // 各章のスライドデータ
 // ==========================================
 
+// 物理単位の基礎スライド
+const physicsUnitSlides = [
+  {
+    title: '単位の基礎：W, J, Whの関係',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-indigo-50 p-6 rounded-lg">
+          <p className="text-xl font-bold mb-4">⚡ エネルギーと電力の関係</p>
+          <div className="space-y-4 text-lg">
+            <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+              <p className="font-bold text-indigo-700">電力 (W) = エネルギー (J) ÷ 時間 (s)</p>
+              <p className="text-gray-600 mt-2">1 W = 1 J/s （1秒あたり1ジュール）</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+              <p className="font-bold text-indigo-700">エネルギー (J) = 電力 (W) × 時間 (s)</p>
+              <p className="text-gray-600 mt-2">ワット秒 = ジュール</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+          <p className="font-bold">💡 覚え方</p>
+          <p>W（ワット）は「仕事の速さ」、J（ジュール）は「仕事の量」</p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '🔑 超重要：Wh = W × 3600s = J',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-gradient-to-r from-red-100 to-orange-100 p-6 rounded-lg">
+          <p className="text-2xl font-bold text-red-700 mb-4">Wh と J の変換</p>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <p className="text-xl font-mono text-center">
+              1 Wh = 1 W × 1時間 = 1 W × 3600秒 = <span className="text-red-600 font-bold">3600 J</span>
+            </p>
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-4">
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">1 kWh</p>
+              <p className="font-mono">= 1000W × 3600s</p>
+              <p className="font-mono text-red-600">= 3,600,000 J = 3.6 MJ</p>
+              <p className="text-sm text-gray-500">log = 6.56</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">1 Wh</p>
+              <p className="font-mono">= 1W × 3600s</p>
+              <p className="font-mono text-red-600">= 3,600 J = 3.6 kJ</p>
+              <p className="text-sm text-gray-500">log = 3.56</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-bold">📝 Log算での変換</p>
+          <p className="font-mono">Wh → J: +3.56 (1時間 = 3600秒)</p>
+          <p className="font-mono">kWh → J: +6.56 (= +3 + 3.56)</p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: 'm/s と km/h の変換',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-emerald-50 p-6 rounded-lg">
+          <p className="text-xl font-bold mb-4">🚗 速度の単位変換</p>
+          <div className="bg-white p-6 rounded-lg shadow-md mb-4">
+            <p className="text-lg">
+              1 km/h = 1000m ÷ 3600s = <span className="font-bold text-emerald-600">1/3.6 m/s</span>
+            </p>
+            <p className="mt-2 text-lg">
+              1 m/s = <span className="font-bold text-emerald-600">3.6 km/h</span>
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">km/h → m/s</p>
+              <p className="font-mono text-emerald-600">÷ 3.6</p>
+              <p className="text-sm text-gray-500">log差: -0.56 (約-0.5)</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">m/s → km/h</p>
+              <p className="font-mono text-emerald-600">× 3.6</p>
+              <p className="text-sm text-gray-500">log差: +0.56 (約+0.5)</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-purple-50 p-4 rounded-lg">
+          <p className="font-bold">📝 例: 時速100km = ?m/s</p>
+          <p className="font-mono">log(100) - 0.56 = 2 - 0.56 = 1.44 → 約28m/s</p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '力学の基本公式',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-purple-50 p-6 rounded-lg">
+          <p className="text-xl font-bold mb-4">🔬 覚えるべき物理公式</p>
+          <div className="space-y-3">
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">運動エネルギー</p>
+              <p className="font-mono">E = ½mv²</p>
+              <p className="text-sm text-gray-500">log(E) = log(m) + 2×log(v) - 0.3</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">位置エネルギー</p>
+              <p className="font-mono">E = mgh</p>
+              <p className="text-sm text-gray-500">log(E) = log(m) + log(g) + log(h)、g≈10なのでlog(g)≈1</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg">
+              <p className="font-bold">自由落下時間</p>
+              <p className="font-mono">t = √(2h/g)</p>
+              <p className="text-sm text-gray-500">log(t) = 0.5×(log(2h) - 1)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+];
+
 const basicSlides = [
   {
     title: 'Log算へようこそ！',
@@ -292,6 +448,53 @@ const basicSlides = [
             0.5刻みは「約3倍」と覚える！<br/>
             10⁰·⁵ ≈ 3, 10¹·⁵ ≈ 30, 10²·⁵ ≈ 300...
           </p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '🗺️ 9×10 対数変換マップ',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="text-lg font-bold mb-2">1.0〜9.9のlog値を一覧表示</p>
+          <p className="text-sm text-gray-600">
+            色分け: <span className="text-red-600 font-bold">赤</span>=切り捨て（真値が大きい）、
+            <span className="text-blue-600 font-bold">青</span>=切り上げ（真値が小さい）、
+            <span className="text-gray-900 font-bold">黒</span>=ほぼ正確
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="p-2 border border-gray-300 font-bold">n \\ .x</th>
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(col => (
+                  <th key={col} className="p-2 border border-gray-300 font-bold">.{col}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {LOG_MAP.map((row, rowIdx) => (
+                <tr key={rowIdx} className={rowIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <td className="p-2 border border-gray-300 font-bold text-center bg-gray-100">{rowIdx + 1}</td>
+                  {row.map((cell, colIdx) => (
+                    <td 
+                      key={colIdx} 
+                      className={`p-2 border border-gray-300 text-center font-mono ${getAccuracyColor(cell.accuracy)}`}
+                    >
+                      {cell.log}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+          <p className="font-bold">💡 使い方</p>
+          <p className="text-sm">例: log(4.2) → 4行目の.2列 = <span className="font-bold text-red-600">0.62</span></p>
+          <p className="text-sm mt-1">このマップで任意の1-9.9の対数値がすぐわかる！</p>
         </div>
       </div>
     ),
@@ -690,6 +893,293 @@ const unitSlides = [
         <div className="bg-yellow-50 p-4 rounded-lg">
           <p className="font-bold">🚀 次のステップ</p>
           <p>実戦モードで問題を解いて、Log感覚を体に染み込ませよう！</p>
+        </div>
+      </div>
+    ),
+  },
+];
+
+// 速度の感覚スライド
+const speedSlides = [
+  {
+    title: '速度の感覚を身につけよう',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-gradient-to-r from-emerald-500 to-green-600 p-6 rounded-lg text-white">
+          <p className="text-xl">速度 = 距離 ÷ 時間</p>
+          <p className="text-lg mt-2">Log算なら → log(速度) = log(距離) - log(時間)</p>
+        </div>
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <p className="font-bold">🚀 この章で学ぶこと</p>
+          <ul className="list-disc pl-5 space-y-1 mt-2">
+            <li>身近な速度のLog値</li>
+            <li>速度変換のテクニック</li>
+            <li>km/hとm/sの変換</li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '身近な速度のLog値',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-emerald-50 p-4 rounded-lg">
+          <p className="font-bold mb-3">🚶 歩く〜走る（m/s）</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">歩行 1.4m/s</p>
+              <p className="font-bold text-emerald-600">log ≈ 0.15</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">ジョギング 3m/s</p>
+              <p className="font-bold text-emerald-600">log ≈ 0.48</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">短距離走 10m/s</p>
+              <p className="font-bold text-emerald-600">log = 1.0</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">自転車 8m/s</p>
+              <p className="font-bold text-emerald-600">log ≈ 0.9</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <p className="font-bold mb-3">🚗 乗り物（km/h）</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">車 100km/h</p>
+              <p className="font-bold text-blue-600">log = 2.0</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">新幹線 300km/h</p>
+              <p className="font-bold text-blue-600">log ≈ 2.48</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">飛行機 900km/h</p>
+              <p className="font-bold text-blue-600">log ≈ 2.95</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">音速 1224km/h</p>
+              <p className="font-bold text-blue-600">log ≈ 3.09</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: 'km/h ↔ m/s 変換',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 rounded-lg text-white">
+          <p className="text-xl font-bold mb-2">km/h → m/s の変換</p>
+          <p>1 km/h = 1000m / 3600s ≈ 0.278 m/s</p>
+          <p className="mt-2 text-lg">log(0.278) ≈ -0.56</p>
+          <p className="text-yellow-300 font-bold mt-2">→ km/hからm/sへは log値を -0.56 する</p>
+        </div>
+        <div className="bg-yellow-50 p-4 rounded-lg">
+          <p className="font-bold">💡 覚え方</p>
+          <p>km/h → m/s: 約1/3.6 なので log -0.56</p>
+          <p>m/s → km/h: 約×3.6 なので log +0.56</p>
+        </div>
+        <div className="bg-green-50 p-4 rounded-lg">
+          <p className="font-bold">例題: 100km/hは何m/s?</p>
+          <p>log(100 km/h) = 2.0</p>
+          <p>2.0 - 0.56 = 1.44</p>
+          <p className="font-bold text-green-600">10^1.44 ≈ 27.8 m/s ✓</p>
+        </div>
+      </div>
+    ),
+  },
+];
+
+// 距離・スケールスライド
+const distanceSlides = [
+  {
+    title: '距離・スケールの感覚',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-6 rounded-lg text-white">
+          <p className="text-xl">宇宙から原子まで、Log算で捉える</p>
+        </div>
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <p className="font-bold">🌍 この章で学ぶこと</p>
+          <ul className="list-disc pl-5 space-y-1 mt-2">
+            <li>日常〜地球規模の距離</li>
+            <li>宇宙スケールの距離</li>
+            <li>極小スケール（原子・分子）</li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '日常の距離（m）',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-purple-50 p-4 rounded-lg">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">歩幅 0.7m</p>
+              <p className="font-bold text-purple-600">log ≈ -0.15</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">身長 1.7m</p>
+              <p className="font-bold text-purple-600">log ≈ 0.23</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">教室 10m</p>
+              <p className="font-bold text-purple-600">log = 1.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">校庭 100m</p>
+              <p className="font-bold text-purple-600">log = 2.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">1km</p>
+              <p className="font-bold text-purple-600">log = 3.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">マラソン 42km</p>
+              <p className="font-bold text-purple-600">log ≈ 4.62</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '地球〜宇宙スケール',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-indigo-50 p-4 rounded-lg">
+          <p className="font-bold mb-3">🌍 地球スケール（m）</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">富士山 3776m</p>
+              <p className="font-bold text-indigo-600">log ≈ 3.58</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">東京-大阪 500km</p>
+              <p className="font-bold text-indigo-600">log ≈ 5.7</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">地球の半径 6400km</p>
+              <p className="font-bold text-indigo-600">log ≈ 6.8</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">地球の周囲 4万km</p>
+              <p className="font-bold text-indigo-600">log ≈ 7.6</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-purple-50 p-4 rounded-lg">
+          <p className="font-bold mb-3">🚀 宇宙スケール（m）</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">月まで 38万km</p>
+              <p className="font-bold text-purple-600">log ≈ 8.6</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">太陽まで 1.5億km</p>
+              <p className="font-bold text-purple-600">log ≈ 11.2</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">1光年</p>
+              <p className="font-bold text-purple-600">log ≈ 15.98</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+];
+
+// 時間と歴史スライド
+const historySlides = [
+  {
+    title: '時間と歴史をLogで見る',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-gradient-to-r from-amber-500 to-orange-600 p-6 rounded-lg text-white">
+          <p className="text-xl">過去から未来まで、時間軸をLog算で</p>
+        </div>
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <p className="font-bold">📅 この章で学ぶこと</p>
+          <ul className="list-disc pl-5 space-y-1 mt-2">
+            <li>人類の歴史のスケール</li>
+            <li>地球・宇宙の歴史</li>
+            <li>時間単位の変換</li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '人類の歴史（年前）',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-amber-50 p-4 rounded-lg">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">10年前</p>
+              <p className="font-bold text-amber-600">log = 1.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">100年前（明治）</p>
+              <p className="font-bold text-amber-600">log = 2.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">1000年前（平安）</p>
+              <p className="font-bold text-amber-600">log = 3.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">2000年前（弥生）</p>
+              <p className="font-bold text-amber-600">log ≈ 3.3</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">1万年前（縄文）</p>
+              <p className="font-bold text-amber-600">log = 4.0</p>
+            </div>
+            <div className="bg-white p-3 rounded text-center">
+              <p className="text-sm">20万年前（人類誕生）</p>
+              <p className="font-bold text-amber-600">log ≈ 5.3</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: '地球・宇宙の歴史',
+    content: (
+      <div className="space-y-4">
+        <div className="bg-orange-50 p-4 rounded-lg">
+          <p className="font-bold mb-3">🌍 地球の歴史（年前）</p>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">恐竜絶滅 6600万年</p>
+              <p className="font-bold text-orange-600">log ≈ 7.82</p>
+            </div>
+            <div className="bg-white p-2 rounded text-center">
+              <p className="text-sm">地球誕生 46億年</p>
+              <p className="font-bold text-orange-600">log ≈ 9.66</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-purple-50 p-4 rounded-lg">
+          <p className="font-bold mb-3">🌌 宇宙の歴史（年前）</p>
+          <div className="bg-white p-3 rounded text-center">
+            <p className="text-sm">宇宙誕生 138億年</p>
+            <p className="font-bold text-purple-600">log ≈ 10.14</p>
+          </div>
+        </div>
+        <div className="bg-yellow-50 p-4 rounded-lg">
+          <p className="font-bold">💡 ポイント</p>
+          <p>Logが1増えると10倍の時間スケール！</p>
+          <p>人類の歴史(log 5)から宇宙の歴史(log 10)まで、たった5桁の差</p>
         </div>
       </div>
     ),
