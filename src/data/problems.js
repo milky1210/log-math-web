@@ -33,12 +33,12 @@ export const PROBLEMS = [
     level: 1,
     category: 'Daily',
     title: "コップ1杯の水",
-    description: "コップ1杯の水（200ml）は何グラム？",
-    targetLog: 2.3,
+    description: "コップ1杯の水（200ml）は何kg？",
+    targetLog: -0.7,
     tolerance: 0.1,
-    hint: "水の密度は1g/ml、200 = 2×100",
-    explanation: "【計算式】log(200) = log(2×10²) = 0.3 + 2 = 2.3\n\n200mlの水 = 200グラム（水の密度が1g/ml）\n200 = 2×100 なので log(2)+log(100) = 0.3+2 = 2.3",
-    unit: "グラム"
+    hint: "水の密度は1g/ml = 1kg/L、200ml = 0.2L = 0.2kg",
+    explanation: "【計算式】log(0.2) = log(2×10⁻¹) = 0.3 - 1 = -0.7\n\n200mlの水 = 0.2kg（水の密度が1kg/L）\n0.2 = 2×10⁻¹ なので log(2)+log(10⁻¹) = 0.3-1 = -0.7",
+    unit: "kg"
   },
   {
     id: 4,
@@ -85,12 +85,12 @@ export const PROBLEMS = [
     level: 2,
     category: 'Area',
     title: "日本の人口密度",
-    description: "日本の人口（1.2億人）÷ 面積（38万km²）= 人口密度は？",
-    targetLog: 2.5,
+    description: "日本の人口（1.2億人）÷ 面積（38万km² = 3.8×10¹¹m²）= 人口密度は？（単位: 人/m²）",
+    targetLog: -3.5,
     tolerance: 0.15,
-    hint: "人口: log ≈ 8.08、面積: log(3.8×10⁵) ≈ 5.58",
-    explanation: "【計算式】8.08 - 5.58 = 2.5\n\n1.2億人 = 1.2×10⁸ (log ≈ 8.08)\n38万km² = 3.8×10⁵ (log ≈ 5.58)\n\n人口密度 = 10²·⁵ ≈ 316人/km²",
-    unit: "人/km²"
+    hint: "人口: log ≈ 8.08、面積(m²): log(3.8×10¹¹) ≈ 11.58",
+    explanation: "【計算式】8.08 - 11.58 = -3.5\n\n1.2億人 = 1.2×10⁸ (log ≈ 8.08)\n38万km² = 3.8×10¹¹m² (log ≈ 11.58)\n\n人口密度 = 10⁻³·⁵ ≈ 3.2×10⁻⁴人/m²\n（= 316人/km²）",
+    unit: "人/m²"
   },
   {
     id: 8,
@@ -197,12 +197,12 @@ export const PROBLEMS = [
     level: 3,
     category: 'Energy',
     title: "ガソリン車の燃費",
-    description: "ガソリン1L（34MJ）で50km走る車。1kmあたり何kJ消費？",
+    description: "ガソリン1L（34MJ）で50km走る車。1mあたり何J消費？",
     targetLog: 2.83,
     tolerance: 0.15,
-    hint: "34MJ = 34000kJ、50km = 10^1.7km",
-    explanation: "【計算式】\n34000kJ ÷ 50km = 680kJ/km\n\nlog(680) = log(6.8×10²) = 0.83 + 2 = 2.83\n\n💡 1kmあたり約700kJ消費",
-    unit: "kJ/km"
+    hint: "34MJ = 3.4×10⁷J、50km = 5×10⁴m",
+    explanation: "【計算式】\n3.4×10⁷J ÷ 5×10⁴m = 680J/m\n\nlog(680) = log(6.8×10²) = 0.83 + 2 = 2.83\n\n💡 1mあたり約680J消費（= 680kJ/km）",
+    unit: "J/m"
   },
   {
     id: 17,
@@ -261,12 +261,12 @@ export const PROBLEMS = [
     level: 4,
     category: 'Physics',
     title: "全身のDNAの長さ",
-    description: "1細胞のDNA（2m）× 全身の細胞（37兆個）= 合計何km？",
-    targetLog: 10.87,
+    description: "1細胞のDNA（2m）× 全身の細胞（37兆個）= 合計何m？",
+    targetLog: 13.87,
     tolerance: 0.2,
-    hint: "37兆 = 3.7×10¹³ (log≈13.57)、2m (log=0.3)、km変換で-3",
-    explanation: "【計算式】\n0.3(2m) + 13.57(37兆) - 3(km変換) = 10.87\n\n2m × 3.7×10¹³ = 7.4×10¹³m = 7.4×10¹⁰km\n\n💡 地球-太陽間(1.5億km)の約500倍！",
-    unit: "km"
+    hint: "37兆 = 3.7×10¹³ (log≈13.57)、2m (log=0.3)",
+    explanation: "【計算式】\n0.3(2m) + 13.57(37兆) = 13.87\n\n2m × 3.7×10¹³ = 7.4×10¹³m\n\n💡 地球-太陽間(1.5×10¹¹m)の約500倍！",
+    unit: "m"
   },
   {
     id: 22,
@@ -309,12 +309,12 @@ export const PROBLEMS = [
     level: 4,
     category: 'Area',
     title: "ソーラーで日本の電力",
-    description: "日本の電力（200GW）を太陽光（150W/m²×稼働率15%）で賄うには何km²必要？",
-    targetLog: 4.85,
+    description: "日本の電力（200GW）を太陽光（150W/m²×稼働率15%）で賄うには何m²必要？",
+    targetLog: 9.95,
     tolerance: 0.2,
     hint: "実効出力 = 150×0.15 = 22.5W/m²",
-    explanation: "【計算式】\n必要面積 = 2×10¹¹W ÷ 22.5W/m² = 8.9×10⁹m²\nkm²に変換: 8.9×10⁹ ÷ 10⁶ = 8900km²\n\nlog(8900) ≈ 3.95 → 約4で概算OK\n\n💡 山手線内側(63km²)の約140倍\n💡 四国(18,300km²)の約半分",
-    unit: "km²"
+    explanation: "【計算式】\n必要面積 = 2×10¹¹W ÷ 22.5W/m² = 8.9×10⁹m²\n\nlog(8.9×10⁹) ≈ 9.95\n\n💡 山手線内側(6.3×10⁷m²)の約140倍\n💡 四国(1.83×10¹⁰m²)の約半分",
+    unit: "m²"
   },
   {
     id: 26,
@@ -473,12 +473,12 @@ export const PROBLEMS = [
     level: 2,
     category: 'Speed',
     title: "ボルトの100m",
-    description: "ウサイン・ボルトは100mを9.58秒で走る。平均時速は？",
-    targetLog: 1.57,
+    description: "ウサイン・ボルトは100mを9.58秒で走る。平均速度（m/s）は？",
+    targetLog: 1.02,
     tolerance: 0.15,
-    hint: "100m ÷ 9.58s = ?m/s、そして×3.6でkm/h",
-    explanation: "【計算式】\n100 ÷ 9.58 ≈ 10.4m/s\n10.4 × 3.6 ≈ 37.5km/h\n\nlog(37.5) ≈ 1.57\n\n💡 人類最速は約37km/h",
-    unit: "km/h"
+    hint: "100m ÷ 9.58s = ?m/s",
+    explanation: "【計算式】\n100 ÷ 9.58 ≈ 10.4m/s\n\nlog(10.4) ≈ 1.02\n\n💡 人類最速は約10.4m/s（≈37km/h）",
+    unit: "m/s"
   },
   {
     id: 39,
